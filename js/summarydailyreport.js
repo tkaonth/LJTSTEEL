@@ -62,7 +62,7 @@ function calculateData() {
         if (filterBranch == "All") {
             if (dataReport[index]['i_Document'] == "Sell" || dataReport[index]['i_Document'] == "Invoice") {
                 total_Dailysales += dataReport[index]['Ss_Paid'] == null ? 0 : dataReport[index]['Ss_Paid'];
-                total_Sales_money += dataReport[index]['Ss_Paid'] == null ? 0 : dataReport[index]['Ss_Paid'];
+                // total_Sales_money += dataReport[index]['Ss_Paid'] == null ? 0 : dataReport[index]['Ss_Paid'];
                 if (dataReport[index]['i_Paid'] == "เงินสด") {
                     total_Sales_money += dataReport[index]['Ss_Paid'];
                 } else {
@@ -79,7 +79,7 @@ function calculateData() {
         } else if (filterBranch == dataReport[index]['Se_BranchID']) {
             if (dataReport[index]['i_Document'] == "Sell" || dataReport[index]['i_Document'] == "Invoice") {
                 total_Dailysales += dataReport[index]['Ss_Paid'] == null ? 0 : dataReport[index]['Ss_Paid'];
-                total_Sales_money += dataReport[index]['Ss_Paid'] == null ? 0 : dataReport[index]['Ss_Paid'];
+                // total_Sales_money += dataReport[index]['Ss_Paid'] == null ? 0 : dataReport[index]['Ss_Paid'];
                 if (dataReport[index]['i_Paid'] == "เงินสด") {
                     total_Sales_money += dataReport[index]['Ss_Paid'];
                 } else {

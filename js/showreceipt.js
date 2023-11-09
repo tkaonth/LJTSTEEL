@@ -98,7 +98,7 @@ function tablerender() {
             tr.innerHTML = `
                         <td class="border-primary">`+ counter + `</td>
                         <td class="border-primary">` + branch_name + `</td>
-                        <td class="border-primary">` + formatDate(dataReport[index]['C_Date']) + `</td>
+                        <td class="border-primary">` + dataReport[index]['C_Date'] + `</td>
                         <td class="border-primary">` + dataReport[index]['Se_SellNo'] + `</td>
                         <td class="border-primary">` + dataReport[index]['Cs_Customer'] + `</td>
                         <td class="border-primary">`+ billtype +`</td>

@@ -19,7 +19,7 @@ if (!empty($_POST['searchTerm'])) {
             Us_StringID LIKE '%$searchTerm%' OR
             Us_Nickname LIKE '%$searchTerm%' OR
             Al_Remark LIKE '%$searchTerm%'
-            ";
+            ORDER BY Al_Datetime ASC";
 } else {
     $query = "SELECT CONVERT(NVARCHAR, Al_Datetime, 103) + ':' + Al_Formname + ':' + Al_Action + ':' + Al_DocumentID + ':BFQty' + CONVERT(NVARCHAR, Al_Befor) + ':AFQty' + CONVERT(NVARCHAR, Al_After) As i_String_Log, Al_Str_Befor, Al_Str_After, Al_Device, Al_IPAddress, Al_Application, Al_Log_By, Us_StringID, Us_UserName, Al_Remark ,Al_Datetime
             FROM tbl_Active_Log LEFT OUTER JOIN tbl_Users ON Al_Log_By = Us_ID ORDER BY Al_Datetime DESC";

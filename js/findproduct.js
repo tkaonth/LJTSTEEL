@@ -107,13 +107,19 @@ function tablerender() {
             var Pp_Price = dataReport[index]['Pp_Price'] == null ? 0 : dataReport[index]['Pp_Price'];
             var i_Last_Username = dataReport[index]['i_Last_Username'] == null ? nomovement : dataReport[index]['i_Last_Username'];
             var i_Last_Movement = dataReport[index]['i_Last_Movement'] == null ? nomovement : dataReport[index]['i_Last_Movement'];
+            if (Pp_Price > 0) {
+                tdPp_Price = `<td class="border-primary">` + Pp_Price.toLocaleString() + `</td>`;
+            } else {
+                tdPp_Price = `<td class="border-primary bg-danger text-white">` + Pp_Price.toLocaleString() + `</td>`;
+            }
+
             tr.innerHTML = `
                         <td class="border-primary">`+ counter + `</td>
                         <td class="border-primary">` + branch_name + `</td>
                         <td class="border-primary">` + dataReport[index]['St_ProductID'] + `</td>
                         <td class="border-primary">` + dataReport[index]['Pm_Description'] + `</td>
                         <td class="border-primary">` + dataReport[index]['St_Qty'].toLocaleString() + `</td>
-                        <td class="border-primary">` + Pp_Price.toLocaleString() + `</td>
+                        `+ tdPp_Price + `
                         <td class="border-primary">` + dataReport[index]['St_Location'] + `</td>
                         <td class="border-primary">` + i_Last_Movement + `</td>
                         <td class="border-primary">` + i_Last_Username + `</td>
