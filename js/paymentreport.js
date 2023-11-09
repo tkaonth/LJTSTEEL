@@ -79,6 +79,7 @@ function tablerender() {
                     tranferBank = paid;
                 }
             }
+            var Ss_Grand_Total = dataReport[index]['Ss_Grand_Total'] == null ? 0 : dataReport[index]['Ss_Grand_Total'];
             var Ss_Remaining = dataReport[index]['Ss_Remaining'] == null ? 0 : dataReport[index]['Ss_Remaining'];
             sum_remaining += dataReport[index]['Ss_Remaining'];
             sum_billprice += dataReport[index]['Ss_Grand_Total'];
@@ -100,10 +101,10 @@ function tablerender() {
                         <td class="border-primary">` + branch_name + `</td>
                         <td class="border-primary">` + dataReport[index]['Cs_Customer'] + `</td>
                         <td class="border-primary">` + paid.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Grand_Total'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Grand_Total.toLocaleString() + `</td>
                         <td class="border-primary">` + money.toLocaleString() + `</td>
                         <td class="border-primary">` + tranferBank.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Remaining'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Remaining.toLocaleString() + `</td>
                         <td class="border-primary">` + billstatus + `</td>
                         `;
             BodyTable.appendChild(tr);
@@ -132,6 +133,7 @@ function tablerender() {
                     tranferBank = paid;
                 }
             }
+            var Ss_Grand_Total = dataReport[index]['Ss_Grand_Total'] == null ? 0 : dataReport[index]['Ss_Grand_Total'];
             var Ss_Remaining = dataReport[index]['Ss_Remaining'] == null ? 0 : dataReport[index]['Ss_Remaining'];
             sum_remaining += dataReport[index]['Ss_Remaining'];
             sum_billprice += dataReport[index]['Ss_Grand_Total'];
@@ -153,10 +155,10 @@ function tablerender() {
                         <td class="border-primary">` + branch_name + `</td>
                         <td class="border-primary">` + dataReport[index]['Cs_Customer'] + `</td>
                         <td class="border-primary">` + paid.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Grand_Total'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Grand_Total.toLocaleString() + `</td>
                         <td class="border-primary">` + money.toLocaleString() + `</td>
                         <td class="border-primary">` + tranferBank.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Remaining'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Remaining.toLocaleString() + `</td>
                         <td class="border-primary">` + billstatus + `</td>
                         `;
             BodyTable.appendChild(tr);
