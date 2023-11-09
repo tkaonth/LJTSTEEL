@@ -32,12 +32,12 @@ if (!empty($_POST['daterange'])) {
     $query = "SELECT * ,CONVERT(varchar(10),Qt_Date,105 ) AS C_Date
         FROM tbl_Qaotation LEFT OUTER JOIN tbl_Customers ON Qt_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Branch ON Qt_BranchID = Bn_ID
         WHERE CONVERT(DATE, Qt_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Qt_BranchID <> 'TS'
-        ORDER BY Qt_Date,Qt_QaotationID,Qt_Sequence";
+        ORDER BY Qt_BranchID,Qt_Date,Qt_QaotationID,Qt_Sequence";
 } else {
     $query = "SELECT * ,CONVERT(varchar(10),Qt_Date,105 ) AS C_Date
         FROM tbl_Qaotation LEFT OUTER JOIN tbl_Customers ON Qt_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Branch ON Qt_BranchID = Bn_ID
         WHERE CONVERT(DATE, Qt_Date) BETWEEN '$startDateFormat' AND '$endDateFormat'
-        ORDER BY Qt_Date,Qt_QaotationID,Qt_Sequence";
+        ORDER BY Qt_BranchID,Qt_Date,Qt_QaotationID,Qt_Sequence";
 
 }
 

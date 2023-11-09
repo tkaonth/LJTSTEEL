@@ -14,7 +14,7 @@ include 'config.php';
 // $query = "SELECT * FROM tbl_Sell_Summary";
 
 $query = "SELECT *,CONVERT(varchar(10),Ss_Date,105 ) AS C_Date FROM tbl_Sell LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID
-        LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID";
+        LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID WHERE Se_SellNo = 'RI032311-060'";
 
 
 $groupedData = array();

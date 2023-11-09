@@ -90,10 +90,10 @@ function tablerender() {
                 }
             }
             
-            
+            var Ss_Grand_Total = dataReport[index]['Ss_Grand_Total'] == null ? 0 : dataReport[index]['Ss_Grand_Total'];
             var Ss_Remaining = dataReport[index]['Ss_Remaining'] == null ? 0 : dataReport[index]['Ss_Remaining'];
             sum_remaining += dataReport[index]['Ss_Remaining'];
-            sum_billprice += dataReport[index]['Ss_Grand_Total'];
+            sum_billprice += Ss_Grand_Total;
             sum_money += money;
             sum_tranferBank += tranferBank;
             sum_remaining += Ss_Remaining;
@@ -114,7 +114,7 @@ function tablerender() {
                         <td class="border-primary">` + dataReport[index]['Cs_Customer'] + `</td>
                         <td class="border-primary">` + deposit.toLocaleString() + `</td>
                         <td class="border-primary">` + paid.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Grand_Total'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Grand_Total.toLocaleString() + `</td>
                         <td class="border-primary">` + money.toLocaleString() + `</td>
                         <td class="border-primary">` + tranferBank.toLocaleString() + `</td>
                         <td class="border-primary">` + Ss_Remaining.toLocaleString() + `</td>
@@ -158,9 +158,10 @@ function tablerender() {
             }
 
 
+            var Ss_Grand_Total = dataReport[index]['Ss_Grand_Total'] == null ? 0 : dataReport[index]['Ss_Grand_Total'];
             var Ss_Remaining = dataReport[index]['Ss_Remaining'] == null ? 0 : dataReport[index]['Ss_Remaining'];
             sum_remaining += dataReport[index]['Ss_Remaining'];
-            sum_billprice += dataReport[index]['Ss_Grand_Total'];
+            sum_billprice += Ss_Grand_Total;
             sum_money += money;
             sum_tranferBank += tranferBank;
             sum_remaining += Ss_Remaining;
@@ -181,7 +182,7 @@ function tablerender() {
                         <td class="border-primary">` + dataReport[index]['Cs_Customer'] + `</td>
                         <td class="border-primary">` + deposit.toLocaleString() + `</td>
                         <td class="border-primary">` + paid.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Grand_Total'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Grand_Total.toLocaleString() + `</td>
                         <td class="border-primary">` + money.toLocaleString() + `</td>
                         <td class="border-primary">` + tranferBank.toLocaleString() + `</td>
                         <td class="border-primary">` + Ss_Remaining.toLocaleString() + `</td>

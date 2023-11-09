@@ -73,7 +73,7 @@ function tablerender() {
             billstatus = behindhand_paymentText;
         } else if (dataReport[index]['Ss_Remaining'] == 0) {
             billstatus = paidedText;
-        } else if (deposit == 0 && paid == 0) {
+        } else if (dataReport[index]['Se_Total']) {
             billstatus = unpaidText;
         }
         if (dataReport[index]['Ss_Payment_Medthod'] == 'เงินสด') {
@@ -88,12 +88,15 @@ function tablerender() {
         }
         
         if (filterBranch == "All") {
+            var Ss_Discount = dataReport[index]['Ss_Discount'] == null ? 0 : dataReport[index]['Ss_Discount'];
+            var Ss_Grand_Total = dataReport[index]['Ss_Grand_Total'] == null ? 0 : dataReport[index]['Ss_Grand_Total'];
+            var Ss_Remaining = dataReport[index]['Ss_Remaining'] == null ? 0 : dataReport[index]['Ss_Remaining'];
             sumPaid += dataReport[index]['Se_Total'];
-            sumDiscount += dataReport[index]['Ss_Discount'];
-            sumTotalprice += dataReport[index]['Ss_Grand_Total'];
+            sumDiscount += Ss_Discount;
+            sumTotalprice += Ss_Grand_Total;
             sumMoney += money;
             sumBank += tranfer_bank;
-            sumRemaining += dataReport[index]['Ss_Remaining'];
+            sumRemaining += Ss_Remaining;
             var tr = document.createElement('tr');
             tr.innerHTML = `
                         <td class="border-primary">`+ counter + `</td>
@@ -103,11 +106,11 @@ function tablerender() {
                         <td class="border-primary">` + dataReport[index]['Cs_Customer'] + `</td>
                         <td class="border-primary">`+ billtype +`</td>
                         <td class="border-primary">` + dataReport[index]['Se_Total'].toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Discount'].toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Grand_Total'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Discount.toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Grand_Total.toLocaleString() + `</td>
                         <td class="border-primary">` + money.toLocaleString() + `</td>
                         <td class="border-primary">` + tranfer_bank.toLocaleString() + `</td>
-                        <td class="border-primary">` + dataReport[index]['Ss_Remaining'].toLocaleString() + `</td>
+                        <td class="border-primary">` + Ss_Remaining.toLocaleString() + `</td>
                         <td class="border-primary">`+ billstatus +`</td>
                         `;
             BodyTable.appendChild(tr);
