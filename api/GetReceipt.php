@@ -29,13 +29,17 @@ $endDateFormat = date('Y-m-d', strtotime(str_replace('/', '-', $endDate)));
 
 
 if (!empty($_POST['daterange'])) {
-    $query = "SELECT *,CONVERT(varchar(10),Se_Date,105 ) AS C_Date FROM tbl_Sell LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID
+    $query = "SELECT *,CONVERT(varchar(10),Se_Invoice_Date,105 ) AS C_Date FROM tbl_Sell LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID
         LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID
-        WHERE CONVERT(DATE,Se_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Bn_ID <> 'TS' ORDER BY Se_Date,Bn_ID" ;
+        WHERE CONVERT(DATE,Se_Invoice_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Bn_ID <> 'TS' ORDER BY Se_Date,Bn_ID" ;
 } else {
-    $query = "SELECT *,CONVERT(varchar(10),Se_Date,105 ) AS C_Date FROM tbl_Sell LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID
+    // $query = "SELECT *,CONVERT(varchar(10),Se_Date,105 ) AS C_Date FROM tbl_Sell LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID
+    //     LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID
+    //     WHERE CONVERT(DATE,Se_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Bn_ID <> 'TS' ORDER BY Se_Date,Bn_ID";
+
+    $query = "SELECT *,CONVERT(varchar(10),Se_Invoice_Date,105 ) AS C_Date FROM tbl_Sell_Summary LEFT OUTER JOIN tbl_Sell ON Ss_InvoiceNO = Se_InvoiceNO LEFT OUTER JOIN tbl_Customers ON Ss_CustomerID = Cs_ID
         LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID
-        WHERE CONVERT(DATE,Se_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Bn_ID <> 'TS' ORDER BY Se_Date,Bn_ID";
+        WHERE CONVERT(DATE,Se_Invoice_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Bn_ID <> 'TS' ORDER BY Se_Date,Bn_ID";
 
 }
 
