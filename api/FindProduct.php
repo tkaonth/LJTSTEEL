@@ -16,7 +16,13 @@ if(!empty($_POST['searchTerm'])){
             OR Pm_Description LIKE '%$searchTerm%'
             ORDER BY St_BranchID, Pm_Description";
 }else {
-    $query = "SELECT St_ProductID, Pm_Description, St_Qty, Pm_Unit, Pp_Price, Pp_Cost_Price, (SELECT TOP 1 Mh_Datetime FROM tbl_Movement_History WHERE Mh_Barcode = St_ProductID AND St_BranchID = Mh_BranchID) As i_Last_Movement, (SELECT TOP 1 Mh_UserID FROM tbl_Movement_History WHERE Mh_Barcode = St_ProductID AND St_BranchID = Mh_BranchID) As i_Last_User, (SELECT Us_UserName FROM tbl_Users WHERE Us_ID = (SELECT TOP 1 Mh_UserID FROM tbl_Movement_History WHERE Mh_Barcode = St_ProductID AND St_BranchID = Mh_BranchID)) As i_Last_Username, St_Product_Type, St_Minimum, St_Maximum, St_Location, St_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, St_Create_Date, St_Sort, St_Status, St_Remark FROM tbl_Stock LEFT OUTER JOIN tbl_Product_Master ON St_ProductID = Pm_ProductID AND St_BranchID = St_BranchID LEFT OUTER JOIN tbl_Branch ON St_BranchID = Bn_ID LEFT OUTER JOIN tbl_Product_Price ON St_ProductID = Pp_ID AND St_BranchID = Pp_Branch ORDER BY St_BranchID, Pm_Description";
+    $query = "SELECT St_ProductID, Pm_Description, St_Qty, Pm_Unit, Pp_Price, Pp_Cost_Price,
+    (SELECT TOP 1 Mh_Datetime FROM tbl_Movement_History WHERE Mh_Barcode = St_ProductID AND St_BranchID = Mh_BranchID) As i_Last_Movement, 
+    (SELECT TOP 1 Mh_UserID FROM tbl_Movement_History WHERE Mh_Barcode = St_ProductID AND St_BranchID = Mh_BranchID) As i_Last_User, 
+    (SELECT Us_StringID FROM tbl_Users WHERE Us_ID = (SELECT TOP 1 Mh_UserID FROM tbl_Movement_History WHERE Mh_Barcode = St_ProductID AND St_BranchID = Mh_BranchID)) As i_Last_Username,
+    St_Product_Type, St_Minimum, St_Maximum, St_Location, St_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, St_Create_Date, St_Sort, St_Status, St_Remark 
+    FROM tbl_Stock LEFT OUTER JOIN tbl_Product_Master ON St_ProductID = Pm_ProductID AND St_BranchID = St_BranchID LEFT OUTER JOIN tbl_Branch ON St_BranchID = Bn_ID 
+    LEFT OUTER JOIN tbl_Product_Price ON St_ProductID = Pp_ID AND St_BranchID = Pp_Branch ORDER BY St_BranchID, Pm_Description";
 }
 
 //dd($dateArray);
