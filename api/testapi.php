@@ -26,32 +26,22 @@ $startDateFormat = date('Y-m-d', strtotime(str_replace('/', '-', $startDate)));
 $endDateFormat = date('Y-m-d', strtotime(str_replace('/', '-', $endDate)));
 
 
-// $query = "SELECT Se_Date, Se_SellNo, Se_BranchID, Se_CustomerID, Cs_Customer, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Dp_DepositID, Dp_Amount, (Ss_Paid - Dp_Amount) As i_Remain, Ss_InvoiceNO, Ss_Paid, Ss_Discount, Ss_Total,Ss_Grand_Total, Ss_Remaining, Se_Invoice_Date, Se_InvoiceNO, Ss_Payment_Medthod, Di_Date, Di_Delivery_ID, Ss_Bank 
-// FROM tbl_Sell LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID
-// LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID
-// LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO
-// LEFT OUTER JOIN tbl_Deposit ON Se_SellNo = Dp_SellNo
-// LEFT OUTER JOIN tbl_Delivery_Invoice ON Se_SellNo = Di_InvoiceID
-// WHERE Se_Invoice_Date BETWEEN '$startDateFormat' AND '$endDateFormat' AND Se_BranchID <> 'TS' AND (Ss_Paid + Dp_Amount) > 0
-// GROUP BY Se_Date, Se_SellNo, Se_BranchID, Se_CustomerID, Cs_Customer, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Dp_DepositID, Dp_Amount, (Ss_Paid - Dp_Amount), Ss_Paid, Ss_InvoiceNO, Ss_Discount, Ss_Total,Ss_Grand_Total, Ss_Remaining, Se_Invoice_Date, Se_InvoiceNO, Ss_Payment_Medthod, Di_Date, Di_Delivery_ID, Ss_Bank
-// ORDER BY Se_Invoice_Date";,CONVERT(varchar(10),Qt_Date,105 ) AS C_Date
-// $query = "SELECT * FROM tbl_Sell_Summary";
 
-$query = "SELECT CONVERT(DATE, Se_Date) As i_Date, Se_SellNo, SUBSTRING(Se_SellNo, 1, 2) As i_Doc, 'Sell' As i_Document, Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, Ss_Total As i_Total, IIF(Dp_DepositID IS NULL, Ss_Paid, 0) As Ss_Paid, IIF(Ss_Paid = 0, '-', Ss_Payment_Medthod) AS i_Paid, Ss_Remaining, Dp_DepositID, Di_Delivery_ID
-FROM tbl_Sell LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Deposit ON Se_SellNo = Dp_SellNo LEFT OUTER JOIN tbl_Delivery_Invoice ON Se_SellNo = Di_InvoiceID
-WHERE CONVERT(DATE, Se_Date) BETWEEN '2023-11-10' AND '2023-11-10' AND Se_BranchID = 'TS' AND Dp_DepositID IS NULL
-GROUP BY Se_Date, Se_SellNo, SUBSTRING(Se_SellNo, 1, 2), Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, Ss_Total, Ss_Paid, Ss_Payment_Medthod, Ss_Remaining, Dp_DepositID, Di_Delivery_ID
-UNION
-SELECT CONVERT(DATE, Dp_Date) As i_Date, Dp_DepositID, SUBSTRING(Dp_DepositID, 1, 2) As i_Doc, 'Deposit' As i_Document, Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, Dp_Amount, 0 As i_Total, IIF(Dp_Amount = 0, '-', Ss_Payment_Medthod) AS i_Paid, Ss_Remaining, Dp_DepositID, Di_Delivery_ID
-FROM tbl_Sell LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Deposit ON Se_SellNo = Dp_SellNo LEFT OUTER JOIN tbl_Delivery_Invoice ON Se_SellNo = Di_InvoiceID 
-WHERE Se_Date BETWEEN '2023-11-10' AND '2023-11-10' AND Se_BranchID = 'TS' AND Dp_DepositID IS NOT NULL
-GROUP BY CONVERT(DATE, Dp_Date), Dp_DepositID, SUBSTRING(Dp_DepositID, 1, 2), Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, Dp_Amount, Ss_Payment_Medthod, Ss_Remaining, Dp_DepositID, Di_Delivery_ID
-UNION
-SELECT CONVERT(DATE, Se_Invoice_Date) As i_Date, Se_InvoiceNO, SUBSTRING(Se_InvoiceNO, 1, 2) As i_Doc, 'Invoice' As i_Document, Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, 0 As i_Total, (Ss_Paid - Dp_Amount) As i_Amount, IIF(Dp_Amount = 0, '-', Ss_Payment_Medthod) AS i_Paid, Ss_Remaining, Dp_DepositID, Di_Delivery_ID
-FROM tbl_Sell LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID LEFT OUTER JOIN tbl_Customers ON Se_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Sell_Summary ON Se_InvoiceNO = Ss_InvoiceNO LEFT OUTER JOIN tbl_Deposit ON Se_SellNo = Dp_SellNo LEFT OUTER JOIN tbl_Delivery_Invoice ON Se_SellNo = Di_InvoiceID 
-WHERE Se_Date BETWEEN '2023-11-10' AND '2023-11-10' AND Se_BranchID = 'TS' AND Dp_DepositID IS NOT NULL
-GROUP BY CONVERT(DATE, Se_Invoice_Date), Se_InvoiceNO, SUBSTRING(Se_InvoiceNO, 1, 2), Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, (Ss_Paid - Dp_Amount), Dp_Amount, Ss_Payment_Medthod, Ss_Remaining, Dp_DepositID, Di_Delivery_ID
-ORDER BY i_Date";
+$query = "SELECT Pp_Planning_Date, Pp_ID, Pp_Sequence, Pp_CustomerID, Pp_ProductID, Pp_Products, Pp_Qty, Qt_Quantity, (IIF(Pp_Qty = Qt_Quantity, 'Y', 'N')) As i_Qty_Check, 
+Pp_Unit_Qty, Qt_Lenght_PUnit, Se_Longer, Cs_Customer, Pp_Reference, Pm_Kg_PMeter, Se_Qaotation, Pp_CoilNO, Qt_CoilNo, IIF(Qt_CoilNo = Pp_CoilNO, 'Y', 'N') As i_Coil_Check, 
+Pm_Symbol, Pm_Width, Pm_Width_Unit, Pp_Delivery_ID, Dm_Delivery_Medthod_TH, Dm_Delivery_Medthod_LA, Dm_Delivery_Medthod_EN, Pp_Planning_By, Us_UserName, Pp_Schedule_Date, 
+Pp_Product_Type, Pp_Taked_Date, Pp_Taked_By, Pp_Taked_Qty, Pp_Unit_Qty As i_Taked_Unit, Pp_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Pp_Sort, Pp_Status, Pp_Remark 
+FROM tbl_Production_Planning LEFT OUTER JOIN tbl_Customers ON Pp_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Delivery_Medthod ON Pp_Delivery_ID = Dm_ID 
+LEFT OUTER JOIN tbl_Sell ON Pp_Reference = Se_InvoiceNO AND Pp_Sequence = Se_Sequence LEFT OUTER JOIN tbl_Branch ON Pp_BranchID = Bn_ID 
+LEFT OUTER JOIN tbl_Users ON Pp_Planning_By = Us_ID LEFT OUTER JOIN tbl_Qaotation ON Qt_QaotationID = Se_Qaotation AND Pp_ProductID = Qt_ProductID AND Pp_Sequence = Qt_Sequence 
+LEFT OUTER JOIN tbl_Product_Master ON Pp_ProductID = Pm_ProductID LEFT OUTER JOIN tbl_Product_Movement_01 ON Pp_CoilNO = Pm_Coilno 
+WHERE  Pp_Products <> 'เงินมัดจำ' ORDER BY Pp_Planning_Date DESC, Pp_ID DESC";
+
+// $query = "SELECT * FROM tbl_Production_Planning 
+// LEFT OUTER JOIN tbl_Customers ON Pp_CustomerID = Cs_ID
+// LEFT OUTER JOIN tbl_Delivery_Medthod ON Pp_Delivery_ID = Dm_ID
+// LEFT OUTER JOIN tbl_Sell ON Pp_Reference = Se_InvoiceNO AND Pp_Sequence = Se_Sequence
+// WHERE Pp_ID = 'PPTS2311-006'";
 
 $groupedData = array();
 
@@ -62,22 +52,22 @@ if ($result === false) {
     die(print_r(sqlsrv_errors(), true));
 }else{
 
-    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        echo '<pre>', print_r($row, 1), '</pre>';
-
-    }
     // while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-    //     $qaotationID = $row['Qt_QaotationID'];
+    //     echo '<pre>', print_r($row, 1), '</pre>';
 
-    //     // Check if the key for this $qaotationID exists in the array
-    //     if (!isset($groupedData[$qaotationID])) {
-    //         $groupedData[$qaotationID] = array();
-    //     }
-
-    //     // Add the current row to the array with the matching $qaotationID
-    //     $groupedData[$qaotationID][] = $row;
     // }
-    // echo '<pre>', print_r($groupedData, 1), '</pre>';
+    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        $qaotationID = $row['Pp_ID'];
+
+        // Check if the key for this $qaotationID exists in the array
+        if (!isset($groupedData[$qaotationID])) {
+            $groupedData[$qaotationID] = array();
+        }
+
+        // Add the current row to the array with the matching $qaotationID
+        $groupedData[$qaotationID][] = $row;
+    }
+    echo '<pre>', print_r($groupedData, 1), '</pre>';
 
     // echo json_encode($data);
 

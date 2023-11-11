@@ -39,6 +39,12 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="showproduction_planning.php">
+            <i class="fas fa-fw fa-file-text"></i>
+            <span><?php echo $content_lang['production_planning'] ?></span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="showreceipt.php">
             <i class="fas fa-fw fa-file-text"></i>
             <span><?php echo $content_lang['receipt'] ?></span></a>

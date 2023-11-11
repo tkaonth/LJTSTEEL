@@ -9,6 +9,7 @@ $content_lang = [
     "paymentReport" => "การรับชำระเงิน",
     "summarydailyReport" => "สรุปการเงินทั้งหมดประจำวัน",
     "reportByinvoice" => "รายงานการชำระเงินของลูกค้า แยกตามใบส่งของ",
+    'production_planning' => 'คำสั่งผลิต',
     "list_number" => "ลำดับ",
     "bill_date" => "วันที่ออกบิล",
     "bill_number" => "เลขที่บิล",
@@ -82,6 +83,7 @@ $content_lang = [
     'lengthperunit' => 'ยาว/หน่วย',
     'count' => 'จำนวน',
     'width' => 'หน้ากว้าง',
+    'length' => 'ความยาว',
     'total_length' => 'ความยาวรวม',
     'cut_fromCoil' => 'ตัดจากคอยล์',
     'PricePerUnit' => 'ราคา/หน่วย',
@@ -95,6 +97,13 @@ $content_lang = [
     'sold' => 'ขายแล้ว',
     'status' => 'สถานะ',
     'bill_type' => 'ประเภทบิล',
+    'Pp_Planning_Date' => 'วันที่สั่งผลิต',
+    'Ref_Document' => 'เอกสารอ้างอิง',
+    'Coil_No' => 'เลขคอยล์',
+    'Deadline' => 'วันที่กำหนดเสร็จ',
+    'Order_production' => 'สั่งผลิต',
+    'Partially_produced' => 'ผลิตแล้วบางส่วน',
+    'Order_production_complete' => 'ผลิตสินค้าเรียบร้อย',
 ];
 
 return $content_lang;
