@@ -53,7 +53,62 @@ WHERE Se_Date BETWEEN '$startDateFormat' AND '$endDateFormat'  AND Dp_DepositID 
 GROUP BY CONVERT(DATE, Se_Invoice_Date), Se_InvoiceNO, SUBSTRING(Se_InvoiceNO, 1, 2), Se_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Cs_Customer, Ss_Grand_Total, (Ss_Paid - Dp_Amount), Dp_Amount, Ss_Payment_Medthod, Ss_Remaining, Dp_DepositID, Di_Delivery_ID,Ss_Discount
 ORDER BY i_Date";
 
-$query = "SELECT * FROM tbl_Sell_Summary WHERE Ss_Date = '2023-11-11'";
+$query = "SELECT * FROM tbl_Sell_Summary LEFT OUTER JOIN tbl_Sell ON  Se_SellNo = Ss_InvoiceNO WHERE Ss_Date = '2023-11-12' AND Se_BranchID = 'TS'";
+
+$query = "SELECT *,Se_BranchID,Se_Delivery_ID,Se_InvoiceNO,Se_SellNo, 
+    CASE
+        WHEN Dp_Amount > 0 THEN 'Deposit'
+        ELSE 'Paid'
+        END AS PaidType,
+    CASE
+        WHEN Dp_Amount > 0 THEN Ss_Paid - Dp_Amount
+        ELSE Ss_Paid
+    END AS Ss_Paid 
+    FROM tbl_Sell_Summary LEFT OUTER JOIN tbl_Deposit ON Ss_InvoiceNO =  Dp_SellNo LEFT OUTER JOIN tbl_Sell ON Ss_InvoiceNO = Se_SellNo
+    WHERE Ss_InvoiceNO = 'RITS2311-009'";
+$InvoiceNO = 'RITS2311-008';
+$query = "SELECT * FROM tbl_Sell_Summary WHERE Ss_InvoiceNO = '$InvoiceNO'";
+$result = sqlsrv_query($conn, $query);
+
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+
+    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        echo '<pre>', print_r($row, 1), '</pre>';
+
+    }
+}
+
+$query = "SELECT * FROM tbl_Sell WHERE Se_InvoiceNO = '$InvoiceNO'";
+$result = sqlsrv_query($conn, $query);
+
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+
+    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        echo '<pre>', print_r($row, 1), '</pre>';
+
+    }
+}
+
+$query = "SELECT * FROM tbl_Delivery_Invoice WHERE Di_InvoiceID = '$InvoiceNO'";
+$result = sqlsrv_query($conn, $query);
+$Di_Delivery_ID = '';
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+
+    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        echo '<pre>', print_r($row, 1), '</pre>';
+        $Di_Delivery_ID = $row['Di_Delivery_ID'];
+
+    }
+}
+
+$query = "SELECT * FROM tbl_Deposit WHERE Dp_SellNo = '$Di_Delivery_ID' OR Dp_SellNo = '$InvoiceNO'";
+
 
 
 
