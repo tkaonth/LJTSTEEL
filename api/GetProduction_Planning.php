@@ -35,7 +35,7 @@ if (!empty($_POST['daterange'])) {
         Pp_Product_Type, Pp_Taked_Date, Pp_Taked_By, Pp_Taked_Qty, Pp_Unit_Qty As i_Taked_Unit, Pp_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Pp_Sort, Pp_Status, Pp_Remark
         ,CONVERT(varchar(10),Pp_Planning_Date,105 ) AS C_Date ,CONVERT(varchar(10),Pp_Schedule_Date,105 ) AS C_Schedule_Date
         FROM tbl_Production_Planning LEFT OUTER JOIN tbl_Customers ON Pp_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Delivery_Medthod ON Pp_Delivery_ID = Dm_ID
-        LEFT OUTER JOIN tbl_Sell ON Pp_Reference = Se_InvoiceNO AND Pp_Sequence = Se_Sequence LEFT OUTER JOIN tbl_Branch ON Pp_BranchID = Bn_ID
+        LEFT OUTER JOIN tbl_Sell ON Pp_Reference = Se_SellNO AND Pp_Sequence = Se_Sequence LEFT OUTER JOIN tbl_Branch ON Pp_BranchID = Bn_ID
         LEFT OUTER JOIN tbl_Users ON Pp_Planning_By = Us_ID LEFT OUTER JOIN tbl_Qaotation ON Qt_QaotationID = Se_Qaotation AND Pp_ProductID = Qt_ProductID AND Pp_Sequence = Qt_Sequence
         LEFT OUTER JOIN tbl_Product_Master ON Pp_ProductID = Pm_ProductID LEFT OUTER JOIN tbl_Product_Movement_01 ON Pp_CoilNO = Pm_Coilno
         WHERE CONVERT(DATE,Pp_Planning_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Pp_Products <> 'เงินมัดจำ' ORDER BY Pp_Planning_Date DESC, Pp_ID DESC";
@@ -46,10 +46,10 @@ if (!empty($_POST['daterange'])) {
         Pp_Product_Type, Pp_Taked_Date, Pp_Taked_By, Pp_Taked_Qty, Pp_Unit_Qty As i_Taked_Unit, Pp_BranchID, Bn_Branch_TH, Bn_Branch_LA, Bn_Branch_EN, Pp_Sort, Pp_Status, Pp_Remark
         ,CONVERT(varchar(10),Pp_Planning_Date,105 ) AS C_Date ,CONVERT(varchar(10),Pp_Schedule_Date,105 ) AS C_Schedule_Date
         FROM tbl_Production_Planning LEFT OUTER JOIN tbl_Customers ON Pp_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Delivery_Medthod ON Pp_Delivery_ID = Dm_ID
-        LEFT OUTER JOIN tbl_Sell ON Pp_Reference = Se_InvoiceNO AND Pp_Sequence = Se_Sequence LEFT OUTER JOIN tbl_Branch ON Pp_BranchID = Bn_ID
+        LEFT OUTER JOIN tbl_Sell ON Pp_Reference = Se_SellNO AND Pp_Sequence = Se_Sequence LEFT OUTER JOIN tbl_Branch ON Pp_BranchID = Bn_ID
         LEFT OUTER JOIN tbl_Users ON Pp_Planning_By = Us_ID LEFT OUTER JOIN tbl_Qaotation ON Qt_QaotationID = Se_Qaotation AND Pp_ProductID = Qt_ProductID AND Pp_Sequence = Qt_Sequence
         LEFT OUTER JOIN tbl_Product_Master ON Pp_ProductID = Pm_ProductID LEFT OUTER JOIN tbl_Product_Movement_01 ON Pp_CoilNO = Pm_Coilno
-        WHERE CONVERT(DATE,Pp_Planning_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Pp_Products <> 'เงินมัดจำ' ORDER BY Pp_Planning_Date DESC, Pp_ID DESC";
+        WHERE CONVERT(DATE,Pp_Planning_Date) BETWEEN '$startDateFormat' AND '$endDateFormat' AND Pp_Products <> 'เงินมัดจำ' ORDER BY Pp_Planning_Date DESC, Pp_ID DESC ,Pp_ProductID ASC";
 
 
 }

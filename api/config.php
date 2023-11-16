@@ -8,7 +8,7 @@ $connectionOptions = array(
     "Encrypt" => 1, // Enables SSL
     "TrustServerCertificate" => 1, // Optional, set to 1 if you trust the certificate
     "CharacterSet" => "UTF-8",
-);
+);  
 
 
 

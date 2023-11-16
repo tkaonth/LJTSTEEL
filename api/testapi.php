@@ -68,47 +68,60 @@ $query = "SELECT *,Se_BranchID,Se_Delivery_ID,Se_InvoiceNO,Se_SellNo,
     WHERE Ss_InvoiceNO = 'RITS2311-009'";
 $InvoiceNO = 'RITS2311-008';
 $query = "SELECT * FROM tbl_Sell_Summary WHERE Ss_InvoiceNO = '$InvoiceNO'";
-$result = sqlsrv_query($conn, $query);
+// $result = sqlsrv_query($conn, $query);
 
-if ($result === false) {
-    die(print_r(sqlsrv_errors(), true));
-} else {
+// if ($result === false) {
+//     die(print_r(sqlsrv_errors(), true));
+// } else {
 
-    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        echo '<pre>', print_r($row, 1), '</pre>';
+//     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+//         echo '<pre>', print_r($row, 1), '</pre>';
 
-    }
-}
+//     }
+// }
 
-$query = "SELECT * FROM tbl_Sell WHERE Se_InvoiceNO = '$InvoiceNO'";
-$result = sqlsrv_query($conn, $query);
+// $query = "SELECT * FROM tbl_Sell WHERE Se_InvoiceNO = '$InvoiceNO'";
+// $result = sqlsrv_query($conn, $query);
 
-if ($result === false) {
-    die(print_r(sqlsrv_errors(), true));
-} else {
+// if ($result === false) {
+//     die(print_r(sqlsrv_errors(), true));
+// } else {
 
-    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        echo '<pre>', print_r($row, 1), '</pre>';
+//     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+//         echo '<pre>', print_r($row, 1), '</pre>';
 
-    }
-}
+//     }
+// }
 
-$query = "SELECT * FROM tbl_Delivery_Invoice WHERE Di_InvoiceID = '$InvoiceNO'";
-$result = sqlsrv_query($conn, $query);
-$Di_Delivery_ID = '';
-if ($result === false) {
-    die(print_r(sqlsrv_errors(), true));
-} else {
+// $query = "SELECT * FROM tbl_Delivery_Invoice WHERE Di_InvoiceID = '$InvoiceNO'";
+// $result = sqlsrv_query($conn, $query);
+// $Di_Delivery_ID = '';
+// if ($result === false) {
+//     die(print_r(sqlsrv_errors(), true));
+// } else {
 
-    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        echo '<pre>', print_r($row, 1), '</pre>';
-        $Di_Delivery_ID = $row['Di_Delivery_ID'];
+//     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+//         echo '<pre>', print_r($row, 1), '</pre>';
+//         $Di_Delivery_ID = $row['Di_Delivery_ID'];
 
-    }
-}
+//     }
+// }
 
-$query = "SELECT * FROM tbl_Deposit WHERE Dp_SellNo = '$Di_Delivery_ID' OR Dp_SellNo = '$InvoiceNO'";
+// $query = "SELECT * FROM tbl_Deposit WHERE Dp_SellNo = '$Di_Delivery_ID' OR Dp_SellNo = '$InvoiceNO'";
+$query = "SELECT Ss_CustomerID,Ss_InvoiceNo,Ss_Price,Ss_Vat,Ss_Total,Ss_Discount,Ss_Grand_Total,Ss_Paid,Ss_Remaining,Ss_Payment_Medthod,Se_Qaotation,Bn_Branch_TH,Bn_Branch_LA,Bn_Branch_EN,Di_Delivery_ID,Cs_Customer,Dp_Date,Dp_DepositID,Dp_Amount FROM tbl_Sell_Summary 
+LEFT OUTER JOIN ( 
+SELECT Se_InvoiceNo,Se_SellNo,Se_Qaotation,Se_BranchID,Se_UserId
+FROM tbl_Sell
+GROUP BY Se_InvoiceNo,Se_SellNo,Se_Qaotation,Se_BranchID,Se_UserId) AS tbl_Sell ON Ss_InvoiceNO = Se_SellNo 
+LEFT OUTER JOIN tbl_Branch ON Se_BranchID = Bn_ID LEFT OUTER JOIN ( 
+SELECT Di_Delivery_ID,Di_InvoiceID
+FROM tbl_Delivery_Invoice
+GROUP BY Di_Delivery_ID,Di_InvoiceID) AS tbl_Delivery_Invoice ON Se_InvoiceNO = Di_delivery_ID
+LEFT OUTER JOIN tbl_Customers ON Ss_CustomerID = Cs_ID LEFT OUTER JOIN tbl_Deposit ON Dp_SellNo = Se_InvoiceNO
+WHERE CONVERT(DATE,Ss_date) BETWEEN '2023-11-11' AND '2023-11-16'";
 
+
+// $query = "SELECT * FROM tbl_Sell WHERE Se_SellNo = 'RI012311-053'";
 
 
 

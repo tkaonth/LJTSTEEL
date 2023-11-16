@@ -142,6 +142,7 @@ function tablerender() {
                         `;
                 }
                 tr.innerHTML += `
+                        <td class="border-primary">` + record[index]['Pp_ProductID'] + `</td>
                         <td class="border-primary">` + record[index]['Qt_Description'] + `</td>
                         <td class="border-primary">` + record[index]['Qt_Width'] + "*" + record[index]['Qt_Hight'] + `</td>
                         <td class="border-primary">` + record[index]['Qt_Lenght_PUnit'] + " " + record[index]['Qt_LP_Unit'] + `</td>
