@@ -20,7 +20,7 @@ $('#find_button').click(function () {
         },
         success: function (response) {
             
-            // console.log(response);
+            console.log(response);
             dataReport = JSON.parse(response);
             console.log(dataReport.Sell_Summary);
             QaotationData = dataReport.Qaotation;
@@ -28,6 +28,7 @@ $('#find_button').click(function () {
             Sell_SummaryData = dataReport.Sell_Summary;
             DepositData = dataReport.Deposit;
             DeliveryData = dataReport.Delivery;
+            ProductPlanningData = dataReport.ProductPlanning;
             // console.log(Sell_SummaryData);
             tablerender(QaotationData);
             // if (data.status === 'success') {
@@ -63,6 +64,9 @@ function tablerender() {
     }
     while (BodyTable5.firstChild) {
         BodyTable5.removeChild(BodyTable5.firstChild);
+    }
+    while (BodyTable6.firstChild) {
+        BodyTable6.removeChild(BodyTable6.firstChild);
     }
     var Qt_TotalPrice = 0;
     var Qt_SunTotal = 0;
@@ -192,6 +196,22 @@ function tablerender() {
                         <td class="border-primary">`+ DeliveryData[index]['Di_BranchID'] + `</td>
                         `;
         BodyTable5.appendChild(tr);
+    }
+    for (let index = 0; index < ProductPlanningData.length; index++) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = `
+                        <td class="border-primary">`+ ProductPlanningData[index]['C_Date'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_ID'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_CustomerID'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_Reference'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_ProductID'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_Products'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_Qty'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_Unit_Qty'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_Planning_By'] + `</td>
+                        <td class="border-primary">`+ ProductPlanningData[index]['Pp_BranchID'] + `</td>
+                        `;
+        BodyTable6.appendChild(tr);
     }
     Swal.close();
 }

@@ -68,6 +68,7 @@ if ($result === false) {
 $query = "SELECT *,CONVERT(varchar(10),Se_date,105 ) AS C_Date FROM tbl_Sell WHERE Se_Qaotation ='$searchTerm' ORDER BY Se_Sequence";
 $InvoiceNo = '';
 $SellNo = '';
+$Delivery_ID = '';
 
 // Execute the query
 $result = sqlsrv_query($conn, $query);
@@ -101,7 +102,24 @@ if ($result === false) {
 
 }
 
-$query = "SELECT *,CONVERT(varchar(10),Dp_Date,105 ) AS C_Date FROM tbl_Deposit WHERE Dp_SellNo = '$InvoiceNo'";
+$query = "SELECT *,CONVERT(varchar(10),Di_Date,105 ) AS C_Date FROM tbl_Delivery_Invoice WHERE Di_InvoiceID = '$InvoiceNo' OR Di_InvoiceID = '$SellNo' ORDER BY Di_Delivery_ID,Di_Sequence";
+
+// Execute the query
+$result = sqlsrv_query($conn, $query);
+
+if ($result === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+
+    while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+        $Delivery_ID = $row['Di_Delivery_ID'];
+        $data['Delivery'][] = $row;
+    }
+
+}
+
+
+$query = "SELECT *,CONVERT(varchar(10),Dp_Date,105 ) AS C_Date FROM tbl_Deposit WHERE Dp_SellNo = '$InvoiceNo' OR Dp_SellNo = '$Delivery_ID'";
 
 // Execute the query
 $result = sqlsrv_query($conn, $query);
@@ -114,9 +132,9 @@ if ($result === false) {
         $data['Deposit'][] = $row;
     }
 
-}
+};
 
-$query = "SELECT *,CONVERT(varchar(10),Di_Date,105 ) AS C_Date FROM tbl_Delivery_Invoice WHERE Di_InvoiceID = '$InvoiceNo' ORDER BY Di_Sequence";
+$query = "SELECT *,CONVERT(varchar(10),Pp_Planning_Date,105 ) AS C_Date FROM tbl_Production_Planning WHERE Pp_Reference = '$SellNo' OR Pp_Reference = '$InvoiceNo' ORDER BY Pp_ID,Pp_Sequence";
 
 // Execute the query
 $result = sqlsrv_query($conn, $query);
@@ -126,11 +144,10 @@ if ($result === false) {
 } else {
 
     while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-        $data['Delivery'][] = $row;
+        $data['ProductPlanning'][] = $row;
     }
 
 }
-
 
 echo json_encode($data);
 

@@ -233,6 +233,29 @@ $calender = include '../../lang/calender_' . $_SESSION["locale"] . '.php';
 
                                         </tbody>
                                     </table>
+
+                                    <table id="ReportTable" class="table table-bordered border-primary text-nowrap mh-100 overflow-auto">
+                                        <thead style="text-align: center;">
+                                            <tr>
+                                                <th id="headerTable" class="border-primary" colspan="10">ใบสั่งผลิต tbl_Production_Planning</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="border-primary">วันที่</th>
+                                                <th class="border-primary">เลขที่ใบสั่งผลิต</th>
+                                                <th class="border-primary">รหัสลูกค้า</th>
+                                                <th class="border-primary">เลขที่อ้างอิง</th>
+                                                <th class="border-primary">รหัสสินค้า</th>
+                                                <th class="border-primary">รายละเอียดสินค้า</th>
+                                                <th class="border-primary">จำนวน</th>
+                                                <th class="border-primary">หน่วย</th>
+                                                <th class="border-primary">คนสั่งผลิต</th>
+                                                <th class="border-primary">สาขา</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="BodyTable6" class="text-center">
+
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
@@ -315,7 +338,6 @@ $calender = include '../../lang/calender_' . $_SESSION["locale"] . '.php';
         var DepositData = "";
         var DeliveryData = "";
     </script>
-    <script src="../../js/createbranchselect_submenu.js"></script>
     <script src="../../js/selectlanguage_submenu.js"></script>
     <script src="../../js/flatpickrSetup.js"></script>
     <script src="../../js/testdebugs.js"></script>
